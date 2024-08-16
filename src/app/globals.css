@@ -63,7 +63,21 @@
   * {
     @apply border-border;
   }
+
+  #root {
+    min-height: 100vh;
+    height: 100vh;
+  }
+
+  .body {
+    display: block;
+    min-height: 100vh;
+    height: 100%;
+  }
+
   body {
     @apply bg-background text-foreground;
+    min-height: 100vh;
+    height: 100vh;
   }
 }
