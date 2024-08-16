@@ -1,42 +1,39 @@
-"use client";
+'use client'
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { toast } from "@/components/ui/use-toast";
-import { signIn } from "next-auth/react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import z from "zod";
+import { Button, Input, Label, toast } from '@/components'
+import { signIn } from 'next-auth/react'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import z from 'zod'
 
 const scheme = z.object({
   email: z.string().email(),
-});
+})
 
-type IFormData = z.infer<typeof scheme>;
+type IFormData = z.infer<typeof scheme>
 
 export const AuthForm = () => {
-  const [loading, setLoading] = useState(false);
-  const { register, handleSubmit } = useForm<IFormData>();
+  const [loading, setLoading] = useState(false)
+  const { register, handleSubmit } = useForm<IFormData>()
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
-    setLoading(true);
+    console.log(data)
+    setLoading(true)
     try {
-      await signIn("email", { email: data.email, redirect: false });
+      await signIn('email', { email: data.email, redirect: false })
       toast({
-        title: "Success",
-        description: "Check your email for the login link",
-      });
+        title: 'Success',
+        description: 'Check your email for the login link',
+      })
     } catch {
       toast({
-        title: "Error",
-        description: "An error occurred",
-      });
+        title: 'Error',
+        description: 'An error occurred',
+      })
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  });
+  })
 
   return (
     <div className="flex flex-col justify-center mx-auto gap-6 max-w-sm h-full">
@@ -46,7 +43,7 @@ export const AuthForm = () => {
           <Label htmlFor="email">Email</Label>
           <Input
             id="email"
-            {...register("email")}
+            {...register('email')}
             type="email"
             placeholder="email@example.com"
           />
@@ -57,5 +54,5 @@ export const AuthForm = () => {
         </Button>
       </form>
     </div>
-  );
-};
+  )
+}
